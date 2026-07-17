@@ -47,6 +47,7 @@ export default function RootLayout() {
       <Stack.Screen name="index" />
 
       <Stack.Screen name="driver/home/index" />
+      <Stack.Screen name="parent/home/index" />
     </Stack>
   );
 }

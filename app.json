@@ -23,6 +23,11 @@
         "backgroundColor": "#ffffff"
       },
       "edgeToEdgeEnabled": true,
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyDrzQ2kfVa-WcC_Q9yMG9XYg2h2uXwiZAI"
+        }
+      },
       "predictiveBackGestureEnabled": false,
       "package": "com.anonymous.beta",
       "permissions": [
@@ -47,6 +52,13 @@
           "locationAlwaysAndWhenInUsePermission": "Allow VanPass to use your location.",
           "isAndroidBackgroundLocationEnabled": true,
           "isAndroidForegroundServiceEnabled": true
+        }
+      ],
+      [
+        "expo-maps",
+        {
+          "requestLocationPermission": true,
+          "locationPermission": "Allow VanPass to use your location"
         }
       ]
     ],
