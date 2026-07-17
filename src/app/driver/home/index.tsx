@@ -1,43 +1,11 @@
-import * as Location from 'expo-location';
-import { router } from 'expo-router';
-import * as SecureStore from 'expo-secure-store';
-import * as TaskManager from 'expo-task-manager';
-import React, { useEffect, useState } from 'react';
 import { ActivityIndicator, Alert, Pressable, StyleSheet, Text, View } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { router } from 'expo-router';
+
+import * as Location from 'expo-location';
+import * as SecureStore from 'expo-secure-store';
 
 const DRIVER_LOCATION_TASK = 'DRIVER_LOCATION_TASK';
-
-TaskManager.defineTask(DRIVER_LOCATION_TASK, async ({ data, error }: any) => {
-  if (error) {
-    console.error('Erro na tarefa nativa de GPS:', error);
-    return;
-  }
-
-  if (data?.locations?.length > 0) {
-    const latestLocation = data.locations[0];
-
-    try {
-      const token = await SecureStore.getItemAsync('userToken');
-      const apiUrl = process.env.EXPO_PUBLIC_API_URL;
-
-      if (!token || !apiUrl) return;
-
-      await fetch(`${apiUrl}/locations/track`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`
-        },
-        body: JSON.stringify({
-          latitude: latestLocation.coords.latitude,
-          longitude: latestLocation.coords.longitude
-        })
-      });
-    } catch (err) {
-      console.log('Falha ao enviar polling em BG:', err);
-    }
-  }
-});
 
 export default function HomeDriver() {
   const [isActive, setIsActive] = useState(false);
@@ -75,12 +43,9 @@ export default function HomeDriver() {
         );
       }
 
-      console.log('starttracking');
-
       await Location.startLocationUpdatesAsync(DRIVER_LOCATION_TASK, {
-        accuracy: Location.Accuracy.Balanced,
-        timeInterval: 30000,
-        deferredUpdatesInterval: 30000,
+        accuracy: Location.Accuracy.Highest,
+        timeInterval: 60000,
         foregroundService: {
           notificationTitle: 'VanPass Motorista',
           notificationBody: 'Compartilhando localização com os passageiros...',
