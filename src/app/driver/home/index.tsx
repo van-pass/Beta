@@ -44,11 +44,14 @@ export default function HomeDriver() {
       }
 
       await Location.startLocationUpdatesAsync(DRIVER_LOCATION_TASK, {
-        accuracy: Location.Accuracy.Highest,
-        timeInterval: 60000,
+        accuracy: Location.Accuracy.High,
+        timeInterval: 15000,
+        distanceInterval: 10,
+        deferredUpdatesInterval: 15000,
+        deferredUpdatesDistance: 10,
         foregroundService: {
           notificationTitle: 'VanPass Motorista',
-          notificationBody: 'Compartilhando localização com os passageiros...',
+          notificationBody: 'Compartilhando localização com os pais...',
           notificationColor: '#ebc11d'
         },
         pausesUpdatesAutomatically: false
