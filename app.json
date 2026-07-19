@@ -49,16 +49,17 @@
       [
         "expo-location",
         {
-          "locationAlwaysAndWhenInUsePermission": "Allow VanPass to use your location.",
+          "locationAlwaysAndWhenInUsePermission": "Permitir a VanPass acessar sua localização.",
           "isAndroidBackgroundLocationEnabled": true,
-          "isAndroidForegroundServiceEnabled": true
+          "isAndroidForegroundServiceEnabled": true,
+          "foregroundServiceType": "location"
         }
       ],
       [
         "expo-maps",
         {
           "requestLocationPermission": true,
-          "locationPermission": "Allow VanPass to use your location"
+          "locationPermission": "Permitir a VanPass acessar sua localização."
         }
       ]
     ],
