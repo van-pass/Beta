@@ -13,6 +13,10 @@ TaskManager.defineTask(DRIVER_LOCATION_TASK, async ({ data, error }: any) => {
 
   if (data?.locations?.length > 0) {
     const latestLocation = data.locations[data.locations.length - 1];
+
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 10000);
+
     try {
       const token = await SecureStore.getItemAsync('userToken');
       const apiUrl = process.env.EXPO_PUBLIC_API_URL;
@@ -31,12 +35,15 @@ TaskManager.defineTask(DRIVER_LOCATION_TASK, async ({ data, error }: any) => {
         body: JSON.stringify({
           latitude: latestLocation.coords.latitude,
           longitude: latestLocation.coords.longitude
-        })
+        }),
+        signal: controller.signal
       });
 
       console.log('Request Status:', response.status);
     } catch (err) {
       console.error('Error: ', err);
+    } finally {
+      clearTimeout(timeoutId);
     }
   }
 });
